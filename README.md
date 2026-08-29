@@ -98,12 +98,10 @@ data-warehouse-project/
 │   └── 7. data_catalog.md             # Reference guide describing available datasets, their fields, definitions,                                                   metadata, and other important information.
 │   
 │
-├── scripts/                            # SQL scripts
+├── scripts/                            # SQL scripts including Data quality and validation checks
 │   ├── bronze/                         # Loading raw data
 │   ├── silver/                         # Cleaning and transforming data
 │   └── gold/                           # Creating analytical models
-│
-├── tests/                              # Data quality and validation checks
 │
 ├── README.md                          # Project overview and instructions
 ├── LICENSE                            # License information for the repository
