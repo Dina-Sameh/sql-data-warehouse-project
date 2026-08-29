@@ -52,6 +52,36 @@ The goal is to use the data warehouse to generate useful business insights and a
 
 ---
 
+## 🔍 My Additions
+
+While working on the project, I added a couple of things to the original implementation.
+
+### 1. Missing Last Record — `bronze.erp_cust_az12`
+
+While loading the CRM data into the Bronze layer, I noticed that the row count did not match the source CSV.
+
+The Bronze table had **18,483 records**, while the source file contained **18,484 records**.
+
+I investigated the missing record and found that the last expected record (`cid = 'AW00029483'`) was not loaded.
+
+The issue was caused by the source CSV file not having a trailing newline character at the end of the file, which caused `BULK INSERT` to skip the last row.
+
+I fixed the source CSV by adding a newline character at the end of the file and reloaded the data.
+
+After the fix, the row counts matched:
+
+* Source CSV: **18,484 records**
+* Bronze table: **18,484 records**
+
+This was an issue I found and investigated separately while following the tutorial.
+
+### 2. Data Quality Checks Report
+
+I also created a separate `data_quality_checks_report` to document the data quality checks performed throughout the project.
+
+The data quality checks themselves were part of the original tutorial. My addition was organizing and documenting the checks and their results in a separate report.
+
+
 ## 📂 Repository Structure
 ```
 data-warehouse-project/
@@ -63,8 +93,9 @@ data-warehouse-project/
 │   ├── 2. naming-conventions.md       # Guidelines defining how tables, columns, files, and other data-related objects                                              should be named consistently.
 │   ├── 3. data_flow.png               # Diagram illustrating how data moves between different sources, processing stages,                                           and destinations.
 │   ├── 4. data_integration.png        # Diagram showing how data from different sources is collected, transformed,                                                 integrated, and made available for use.
-│   ├── 5. data_models.png             # Diagram showing the project's data models and relationships, including the star                                             schema used for analytics.
-│   └── 6. data_catalog.md             # Reference guide describing available datasets, their fields, definitions,                                                   metadata, and other important information.
+│   ├── 5. data_quality_checks_report.md            
+│   ├── 6. data_models.png             # Diagram showing the project's data models and relationships, including the star                                             schema used for analytics.
+│   └── 7. data_catalog.md             # Reference guide describing available datasets, their fields, definitions,                                                   metadata, and other important information.
 │   
 │
 ├── scripts/                            # SQL scripts
