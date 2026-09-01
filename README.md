@@ -50,6 +50,12 @@ The project also includes SQL-based analysis around:
 
 The goal is to use the data warehouse to generate useful business insights and answer common business questions.
 
+The analysis and reporting part is built in a separate repository, on top of the star schema created here:
+
+👉 **[SQL Data Analysis and Reporting Project](https://github.com/Dina-Sameh/sql-data-analysis-and-reporting-project)**
+
+I kept the two projects separate so that this repository stays focused on **building the data warehouse**, while the other one focuses on **analyzing the data** it produces.
+
 ---
 
 ## 🔍 My Additions
@@ -84,29 +90,61 @@ The data quality checks themselves were part of the original tutorial. My additi
 
 ## 📂 Repository Structure
 ```
-data-warehouse-project/
+sql-data-warehouse-project/
 │
-├── datasets/                           # Raw ERP and CRM datasets
+├── datasets/                                # Raw ERP and CRM datasets
+│   ├── source_crm/                          # cust_info, prd_info, sales_details
+│   └── source_erp/                          # CUST_AZ12, LOC_A101, PX_CAT_G1V2
 │
-├── docs/                               # Project documentation and architecture details
-│   ├── 1. data_architecture.png       # High-level overview of the project's data architecture, showing the main                                                    components and how they are connected.
-│   ├── 2. naming-conventions.md       # Guidelines defining how tables, columns, files, and other data-related objects                                              should be named consistently.
-│   ├── 3. data_flow.png               # Diagram illustrating how data moves between different sources, processing stages,                                           and destinations.
-│   ├── 4. data_integration.png        # Diagram showing how data from different sources is collected, transformed,                                                 integrated, and made available for use.
-│   ├── 5. data_quality_checks_report.md            
-│   ├── 6. data_models.png             # Diagram showing the project's data models and relationships, including the star                                             schema used for analytics.
-│   └── 7. data_catalog.md             # Reference guide describing available datasets, their fields, definitions,                                                   metadata, and other important information.
-│   
+├── docs/                                    # Project documentation and architecture details
+│   ├── 1.data_architecture.drawio.png       # High-level overview of the project's data architecture,
+│   │                                          showing the main components and how they are connected.
+│   ├── 2.naming_conventions.md              # Guidelines defining how tables, columns, files, and other
+│   │                                          data-related objects should be named consistently.
+│   ├── 3.data_flow.drawio.png               # Diagram illustrating how data moves between different
+│   │                                          sources, processing stages, and destinations.
+│   ├── 4.data_integration.drawio.png        # Diagram showing how data from different sources is
+│   │                                          collected, transformed, integrated, and made available for use.
+│   ├── 5.data_quality_checks_report.md      # Every data quality issue found, its root cause, the fix,
+│   │                                          and which layer the fix was applied in.
+│   ├── 6.data_model.drawio.png              # Diagram showing the project's data models and relationships,
+│   │                                          including the star schema used for analytics.
+│   └── 7.data_catalog.md                    # Reference guide describing available datasets, their fields,
+│                                              definitions, metadata, and other important information.
 │
+<<<<<<< HEAD
+├── scripts/                                 # SQL scripts, run in numbered order
+│   ├── 1.init_database.sql                  # Creates the database and the bronze/silver/gold schemas
+│   ├── 2.bronze/                            # Loading raw data
+│   │   ├── 1.ddl_bronze.sql                 # Creates the Bronze tables
+│   │   ├── 2.proc_load_bronze.sql           # Load procedure (BULK INSERT + row count validation)
+│   │   └── 3.quality_checks_bronze.sql      # Data quality and validation checks on Bronze
+│   ├── 3.silver/                            # Cleaning and transforming data
+│   │   ├── 1.ddl_silver.sql                 # Creates the Silver tables
+│   │   ├── 2.proc_load_silver.sql           # Load procedure containing all transformation logic
+│   │   └── 3.quality_checks_silver.sql      # Data quality and validation checks on Silver
+│   └── 4.gold/                              # Creating analytical models
+│       ├── 1.ddl_gold.sql                   # Creates dim_customers, dim_products, fact_sales
+│       └── 2.quality_checks_gold.sql        # Surrogate key and referential integrity checks
+│
+├── README.md                                # Project overview and instructions
+└── LICENSE                                  # License information for the repository
+
 ├── scripts/                            # SQL scripts including Data quality and validation checks
 │   ├── bronze/                         # Loading raw data
 │   ├── silver/                         # Cleaning and transforming data
 │   └── gold/                           # Creating analytical models
 │
 ├── README.md                          # Project overview and instructions
-├── LICENSE                            # License information for the repository
-└── .gitignore                         # Files and directories to be ignored by Git
+└── LICENSE                            # License information for the repository
+
+>>>>>>> d0c9e589263e377e32ad9a9f7bf04eab6d9c5688
 ```
+
+> **Note:** The data quality and validation checks live inside each layer's folder
+> (`3.quality_checks_bronze.sql`, `3.quality_checks_silver.sql`, `2.quality_checks_gold.sql`)
+> rather than in a separate `tests/` folder, so that each check sits next to the layer it validates.
+
 ---
 
 
